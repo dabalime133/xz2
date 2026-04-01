@@ -3,779 +3,716 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MinesPromo — Сигналы Mines 2026 | Промокоды и бонусы</title>
-<meta name="description" content="Лучшие сигналы для Mines 2026. Промокоды, бонусы до 500%, стратегии игры Mines. Mines signals, промокод Mines, как играть в Mines.">
+<title>MinesPromo — Стратегия 1win</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #050a14;
-    --bg2: #080f1e;
-    --panel: rgba(10,20,40,0.85);
-    --neon-cyan: #00f5ff;
-    --neon-green: #00ff88;
-    --neon-purple: #bf00ff;
-    --neon-yellow: #ffe600;
-    --text: #d0e8ff;
-    --text-dim: #5a7a9a;
-    --border: rgba(0,245,255,0.15);
-    --glow-cyan: 0 0 20px rgba(0,245,255,0.4), 0 0 60px rgba(0,245,255,0.15);
-    --glow-green: 0 0 20px rgba(0,255,136,0.4), 0 0 60px rgba(0,255,136,0.15);
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --lime:#CCFF00;
+    --violet:#8B5CF6;
+    --bg:#080808;
+    --glass:rgba(255,255,255,0.04);
+    --glass-border:rgba(139,92,246,0.35);
+  }
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:#fff;
+    font-family:'Space Grotesk',sans-serif;
+    overflow-x:hidden;
   }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 17px;
-    line-height: 1.6;
-    overflow-x: hidden;
+  /* === DIGITAL RAIN BG === */
+  #rain-canvas{
+    position:fixed;top:0;left:0;width:100%;height:100%;
+    z-index:0;opacity:0.13;pointer-events:none;
   }
 
-  /* ───── NOISE OVERLAY ───── */
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 999;
-    opacity: .5;
+  /* === HERO === */
+  .hero{
+    position:relative;z-index:1;
+    min-height:100vh;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:2rem 1rem 4rem;
+    text-align:center;
+  }
+  .hero-badge{
+    background:rgba(139,92,246,0.15);
+    border:1px solid var(--violet);
+    border-radius:40px;
+    padding:6px 18px;
+    font-size:12px;
+    letter-spacing:2px;
+    color:var(--violet);
+    text-transform:uppercase;
+    margin-bottom:1.5rem;
+    animation:fadeDown .8s ease both;
+  }
+  .hero h1{
+    font-size:clamp(1.8rem,6vw,3.5rem);
+    font-weight:700;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    line-height:1.1;
+    margin-bottom:.75rem;
+    animation:fadeDown .9s ease both;
+  }
+  .hero h1 span{color:var(--lime);text-shadow:0 0 30px rgba(204,255,0,.5)}
+  .hero-sub{
+    font-size:clamp(.85rem,2.5vw,1.1rem);
+    color:#aaa;
+    margin-bottom:2.5rem;
+    max-width:520px;
+    animation:fadeDown 1s ease both;
+  }
+  .hero-sub b{color:var(--lime)}
+
+  /* Glass panel */
+  .glass-panel{
+    background:rgba(10,10,20,0.65);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border:1px solid var(--glass-border);
+    border-radius:20px;
+    padding:2rem;
+    margin-bottom:2rem;
+    animation:fadeUp 1s ease both;
   }
 
-  /* ───── HEADER ───── */
-  header {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 5vw;
-    background: rgba(5,10,20,0.8);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
+  /* Grid */
+  .grid-wrap{display:inline-block;position:relative}
+  .mines-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:8px;
+    padding:.5rem;
   }
-  .logo {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.3rem; font-weight: 900;
-    color: var(--neon-cyan);
-    text-shadow: var(--glow-cyan);
-    letter-spacing: 2px;
-    text-decoration: none;
+  .cell{
+    width:clamp(44px,10vw,58px);
+    height:clamp(44px,10vw,58px);
+    border-radius:10px;
+    border:1px solid rgba(139,92,246,.3);
+    background:rgba(139,92,246,.08);
+    display:flex;align-items:center;justify-content:center;
+    font-size:22px;
+    cursor:default;
+    transition:all .2s;
+    position:relative;
+    overflow:hidden;
   }
-  .logo span { color: var(--neon-green); }
-  nav a {
-    color: var(--text-dim); text-decoration: none;
-    font-weight: 600; font-size: 0.9rem; letter-spacing: 1px;
-    margin-left: 28px; text-transform: uppercase;
-    transition: color .2s;
+  .cell.safe{
+    border-color:var(--lime);
+    background:rgba(204,255,0,.12);
+    box-shadow:0 0 18px rgba(204,255,0,.35);
   }
-  nav a:hover { color: var(--neon-cyan); }
+  .cell.safe::after{content:'★';font-size:20px;color:var(--lime)}
+  .cell.scan{
+    border-color:var(--violet);
+    background:rgba(139,92,246,.25);
+    box-shadow:0 0 12px rgba(139,92,246,.4);
+  }
+  .cell.bomb::after{content:'💣';font-size:18px}
 
-  /* ───── HERO ───── */
-  .hero {
-    min-height: 100vh;
-    padding: 120px 5vw 80px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+  /* CTA */
+  .cta-btn{
+    display:inline-block;
+    background:var(--lime);
+    color:#000;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(.85rem,3vw,1.05rem);
+    letter-spacing:1px;
+    text-transform:uppercase;
+    text-decoration:none;
+    padding:1rem 2rem;
+    border-radius:12px;
+    border:none;
+    cursor:pointer;
+    animation:pulse 2.2s infinite,fadeUp 1.1s ease both;
+    position:relative;
+    z-index:1;
   }
-
-  /* grid lines bg */
-  .hero::after {
-    content: '';
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(0,245,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,245,255,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    animation: gridScroll 20s linear infinite;
-  }
-  @keyframes gridScroll {
-    0% { background-position: 0 0; }
-    100% { background-position: 60px 60px; }
-  }
-
-  .hero-glow {
-    position: absolute;
-    width: 600px; height: 600px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,245,255,0.08) 0%, transparent 70%);
-    top: 50%; left: 50%; transform: translate(-50%,-50%);
-    pointer-events: none;
-    animation: pulse 4s ease-in-out infinite;
-  }
-  @keyframes pulse { 0%,100%{opacity:.6;transform:translate(-50%,-50%) scale(1)} 50%{opacity:1;transform:translate(-50%,-50%) scale(1.1)} }
-
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(0,255,136,0.1);
-    border: 1px solid rgba(0,255,136,0.3);
-    border-radius: 100px; padding: 6px 18px;
-    font-size: 0.82rem; font-weight: 700; letter-spacing: 2px;
-    text-transform: uppercase; color: var(--neon-green);
-    margin-bottom: 24px; position: relative; z-index: 1;
-    animation: fadeDown .6s ease both;
-  }
-  .badge-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--neon-green);
-    animation: blink 1.2s ease-in-out infinite;
-    box-shadow: 0 0 8px var(--neon-green);
-  }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
-
-  h1 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: clamp(2rem, 5vw, 3.8rem);
-    font-weight: 900; line-height: 1.1;
-    position: relative; z-index: 1;
-    animation: fadeDown .8s .1s ease both;
-  }
-  h1 .accent-cyan { color: var(--neon-cyan); text-shadow: var(--glow-cyan); }
-  h1 .accent-green { color: var(--neon-green); text-shadow: var(--glow-green); }
-
-  .hero-sub {
-    font-size: 1.15rem; color: var(--text-dim);
-    max-width: 580px; margin: 20px auto 0;
-    position: relative; z-index: 1;
-    animation: fadeDown .8s .2s ease both;
+  @keyframes pulse{
+    0%,100%{box-shadow:0 0 0 0 rgba(204,255,0,.5),0 0 20px rgba(204,255,0,.4)}
+    50%{box-shadow:0 0 0 12px rgba(204,255,0,0),0 0 35px rgba(204,255,0,.6)}
   }
 
-  @keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:none} }
+  /* === PROMO CODES === */
+  section{position:relative;z-index:1;padding:4rem 1rem}
+  .section-title{
+    text-align:center;
+    font-size:clamp(1.4rem,5vw,2.2rem);
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    margin-bottom:.5rem;
+  }
+  .section-title span{color:var(--lime)}
+  .section-sub{text-align:center;color:#888;font-size:.9rem;margin-bottom:2.5rem}
 
-  /* ───── MINES GRID ───── */
-  .grid-section {
-    position: relative; z-index: 1;
-    margin: 48px auto 0;
-    animation: fadeDown .8s .3s ease both;
+  .promo-cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:1.5rem;
+    max-width:900px;
+    margin:0 auto;
   }
-  .mines-grid {
-    display: grid; grid-template-columns: repeat(5, 1fr);
-    gap: 8px; width: 280px; margin: 0 auto;
+  .promo-card{
+    border-radius:20px;
+    padding:1.75rem;
+    background:linear-gradient(135deg,rgba(139,92,246,.25) 0%,rgba(204,255,0,.1) 100%);
+    border:1px solid var(--glass-border);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    position:relative;
+    overflow:hidden;
+    transition:transform .3s,box-shadow .3s;
+    cursor:default;
   }
-  .cell {
-    width: 48px; height: 48px;
-    background: rgba(0,245,255,0.05);
-    border: 1px solid rgba(0,245,255,0.15);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.4rem;
-    cursor: pointer;
-    transition: background .15s, transform .15s, box-shadow .15s;
-    position: relative; overflow: hidden;
+  .promo-card:hover{
+    transform:perspective(600px) rotateY(-4deg) rotateX(2deg) translateY(-4px);
+    box-shadow:0 20px 60px rgba(139,92,246,.3);
   }
-  .cell:hover { background: rgba(0,245,255,0.12); transform: scale(1.08); }
-  .cell.star {
-    background: rgba(0,255,136,0.15);
-    border-color: var(--neon-green);
-    box-shadow: 0 0 16px rgba(0,255,136,0.3);
-    animation: starPop .3s ease;
+  .sheen{
+    position:absolute;top:-60%;left:-60%;
+    width:60%;height:200%;
+    background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.08) 50%,transparent 60%);
+    animation:sheen 3s ease infinite;
+    pointer-events:none;
   }
-  .cell.mine {
-    background: rgba(255,40,60,0.15);
-    border-color: #ff3040;
-    box-shadow: 0 0 16px rgba(255,40,60,0.3);
-    animation: starPop .3s ease;
+  @keyframes sheen{
+    0%{transform:translateX(-100%)}
+    60%,100%{transform:translateX(280%)}
   }
-  @keyframes starPop { from{transform:scale(.6);opacity:0} to{transform:scale(1);opacity:1} }
+  .card-logo{
+    font-size:1.3rem;font-weight:700;letter-spacing:3px;
+    color:#fff;margin-bottom:1rem;
+  }
+  .card-logo span{color:var(--lime)}
+  .bonus-text{
+    font-size:2rem;font-weight:700;color:var(--lime);
+    text-shadow:0 0 20px rgba(204,255,0,.5);
+    margin-bottom:1rem;
+  }
+  .promo-field{
+    background:rgba(0,0,0,.5);
+    border:1px solid rgba(139,92,246,.5);
+    border-radius:10px;
+    padding:.75rem 1rem;
+    font-family:'Share Tech Mono',monospace;
+    font-size:1.1rem;
+    letter-spacing:3px;
+    color:var(--lime);
+    text-align:center;
+    cursor:pointer;
+    transition:transform .1s,box-shadow .1s;
+    margin-bottom:1rem;
+    user-select:none;
+  }
+  .promo-field:active{transform:scale(.97)}
+  .promo-field:hover{box-shadow:0 0 15px rgba(204,255,0,.25)}
+  .activate-btn{
+    display:block;width:100%;
+    background:var(--lime);color:#000;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;font-size:.9rem;
+    letter-spacing:1px;text-transform:uppercase;
+    text-align:center;text-decoration:none;
+    padding:.85rem;border-radius:10px;
+    border:none;cursor:pointer;
+    transition:opacity .2s;
+  }
+  .activate-btn:hover{opacity:.85}
 
-  .grid-hint {
-    text-align: center; margin-top: 12px;
-    font-size: 0.82rem; color: var(--text-dim); letter-spacing: 1px;
-    text-transform: uppercase;
+  /* Toast */
+  .toast{
+    position:fixed;top:24px;left:50%;transform:translateX(-50%) translateY(-80px);
+    background:rgba(10,10,20,.95);
+    border:1px solid var(--lime);
+    border-radius:12px;
+    padding:1rem 2rem;
+    font-family:'Share Tech Mono',monospace;
+    font-size:.9rem;
+    color:var(--lime);
+    letter-spacing:2px;
+    z-index:9999;
+    transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .3s;
+    opacity:0;
+    text-shadow:0 0 10px rgba(204,255,0,.6);
+    box-shadow:0 0 30px rgba(204,255,0,.2);
   }
+  .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 
-  /* ───── CTA BUTTONS ───── */
-  .cta-row {
-    display: flex; gap: 16px; flex-wrap: wrap;
-    justify-content: center; margin-top: 40px;
-    position: relative; z-index: 1;
-    animation: fadeDown .8s .4s ease both;
+  /* === TIMELINE === */
+  .timeline{
+    position:relative;
+    max-width:600px;
+    margin:0 auto;
+    padding:2rem 0;
   }
-  .btn {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.82rem; font-weight: 700; letter-spacing: 2px;
-    text-transform: uppercase; text-decoration: none;
-    padding: 16px 32px; border-radius: 6px;
-    border: none; cursor: pointer;
-    display: inline-flex; align-items: center; gap: 8px;
-    transition: transform .15s, box-shadow .15s;
-    position: relative; overflow: hidden;
+  .tl-line{
+    position:absolute;
+    left:50%;transform:translateX(-50%);
+    top:0;bottom:0;width:2px;
+    background:linear-gradient(to bottom,transparent,var(--violet),var(--violet),transparent);
+    box-shadow:0 0 12px rgba(139,92,246,.6);
   }
-  .btn::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
-    transform: translateX(-100%);
-    transition: transform .5s;
+  .tl-step{
+    display:flex;
+    align-items:flex-start;
+    gap:2rem;
+    margin-bottom:3rem;
+    position:relative;
   }
-  .btn:hover::after { transform: translateX(100%); }
-  .btn:hover { transform: translateY(-2px); }
+  .tl-step:nth-child(odd){flex-direction:row}
+  .tl-step:nth-child(even){flex-direction:row-reverse}
 
-  .btn-primary {
-    background: linear-gradient(135deg, var(--neon-cyan), #0099cc);
-    color: #000;
-    box-shadow: 0 0 24px rgba(0,245,255,0.4);
+  .tl-circle{
+    flex-shrink:0;
+    width:52px;height:52px;
+    border-radius:50%;
+    border:2px solid var(--violet);
+    background:rgba(139,92,246,.15);
+    display:flex;align-items:center;justify-content:center;
+    font-size:22px;
+    position:relative;z-index:2;
+    transition:all .5s;
+    box-shadow:0 0 0 0 rgba(204,255,0,0);
   }
-  .btn-primary:hover { box-shadow: 0 0 40px rgba(0,245,255,0.7); }
+  .tl-circle.active{
+    border-color:var(--lime);
+    background:rgba(204,255,0,.15);
+    box-shadow:0 0 20px rgba(204,255,0,.4);
+  }
+  .tl-content{
+    flex:1;
+    background:var(--glass);
+    border:1px solid var(--glass-border);
+    backdrop-filter:blur(12px);
+    border-radius:14px;
+    padding:1.25rem;
+  }
+  .tl-content h3{
+    font-size:1rem;letter-spacing:2px;text-transform:uppercase;
+    color:var(--lime);margin-bottom:.5rem;font-weight:700;
+  }
+  .tl-content p{font-size:.88rem;color:#aaa;line-height:1.6}
+  .tl-btn{
+    display:inline-block;
+    margin-top:.75rem;
+    background:transparent;
+    border:1px solid var(--lime);
+    color:var(--lime);
+    font-family:'Space Grotesk',sans-serif;
+    font-size:.8rem;font-weight:600;
+    letter-spacing:1px;text-transform:uppercase;
+    text-decoration:none;
+    padding:.5rem 1rem;
+    border-radius:8px;
+    transition:background .2s,color .2s;
+  }
+  .tl-btn:hover{background:var(--lime);color:#000}
 
-  .btn-secondary {
-    background: transparent;
-    color: var(--neon-green);
-    border: 1.5px solid var(--neon-green);
-    box-shadow: 0 0 16px rgba(0,255,136,0.2);
+  /* === LIVE WINS === */
+  .live-section{background:rgba(0,0,0,.4);border-top:1px solid rgba(139,92,246,.2);border-bottom:1px solid rgba(139,92,246,.2)}
+  .live-header{
+    display:flex;align-items:center;gap:.75rem;
+    justify-content:center;margin-bottom:1.5rem;
   }
-  .btn-secondary:hover { box-shadow: 0 0 32px rgba(0,255,136,0.4); background: rgba(0,255,136,0.07); }
+  .live-dot{
+    width:10px;height:10px;border-radius:50%;
+    background:#ff3b3b;
+    box-shadow:0 0 10px #ff3b3b;
+    animation:blink 1s infinite;
+  }
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+  .live-label{font-family:'Share Tech Mono',monospace;font-size:.85rem;letter-spacing:3px;color:#ff3b3b}
 
-  /* ───── SEO H2 ───── */
-  .seo-bar {
-    background: rgba(0,245,255,0.04);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 28px 5vw; text-align: center;
+  .wins-feed{
+    max-width:700px;margin:0 auto;
+    height:280px;overflow:hidden;
+    position:relative;
   }
-  .seo-bar h2 {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 1.05rem; font-weight: 600;
-    color: var(--text-dim); letter-spacing: 1px;
+  .wins-feed::before,.wins-feed::after{
+    content:'';position:absolute;left:0;right:0;height:60px;z-index:2;pointer-events:none;
   }
-  .seo-bar h2 span { color: var(--neon-cyan); }
+  .wins-feed::before{top:0;background:linear-gradient(to bottom,rgba(8,8,8,.9),transparent)}
+  .wins-feed::after{bottom:0;background:linear-gradient(to top,rgba(8,8,8,.9),transparent)}
 
-  /* ───── SECTIONS ───── */
-  section { padding: 80px 5vw; max-width: 1100px; margin: 0 auto; }
+  .win-row{
+    display:flex;align-items:center;gap:.75rem;
+    padding:.6rem 1rem;
+    border-bottom:1px solid rgba(255,255,255,.05);
+    font-family:'Share Tech Mono',monospace;
+    font-size:.85rem;
+    animation:slideUp .5s ease both;
+  }
+  @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .win-name{color:var(--violet);min-width:80px}
+  .win-amount{color:var(--lime);font-size:1rem;font-weight:700;text-shadow:0 0 12px rgba(204,255,0,.5);flex:1}
+  .win-emoji{font-size:1.1rem}
 
-  .section-label {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.72rem; letter-spacing: 4px; text-transform: uppercase;
-    color: var(--neon-cyan); margin-bottom: 12px;
+  /* === FAQ === */
+  .faq-list{max-width:700px;margin:0 auto}
+  .faq-item{
+    border-bottom:1px solid rgba(255,255,255,.08);
+    overflow:hidden;
   }
-  .section-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: clamp(1.5rem, 3vw, 2.4rem);
-    font-weight: 900; line-height: 1.2;
-    margin-bottom: 16px;
+  .faq-q{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:1.1rem 0;
+    cursor:pointer;
+    font-size:.95rem;font-weight:600;color:#ddd;
+    gap:1rem;
+    transition:color .2s;
   }
-  .section-desc { color: var(--text-dim); max-width: 560px; margin-bottom: 48px; }
+  .faq-q:hover{color:#fff}
+  .faq-icon{
+    flex-shrink:0;width:22px;height:22px;
+    border-radius:50%;border:1px solid rgba(139,92,246,.5);
+    display:flex;align-items:center;justify-content:center;
+    font-size:16px;color:var(--violet);
+    transition:transform .35s;
+    line-height:1;
+  }
+  .faq-item.open .faq-icon{transform:rotate(45deg)}
+  .faq-a{
+    font-size:.87rem;color:#888;line-height:1.75;
+    max-height:0;overflow:hidden;
+    transition:max-height .4s ease,padding .4s ease;
+  }
+  .faq-item.open .faq-a{max-height:300px;padding-bottom:1rem}
 
-  /* ───── PROMO CARDS ───── */
-  .promo-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
+  /* === FOOTER === */
+  footer{
+    position:relative;z-index:1;
+    border-top:1px solid rgba(255,255,255,.06);
+    padding:2.5rem 1rem 2rem;
+    text-align:center;
   }
-  .promo-card {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 24px;
-    backdrop-filter: blur(12px);
-    transition: border-color .2s, box-shadow .2s;
-    position: relative; overflow: hidden;
+  .footer-logo{font-size:1.2rem;font-weight:700;letter-spacing:3px;margin-bottom:.75rem;color:#fff}
+  .footer-logo span{color:var(--lime)}
+  .tg-link{
+    display:inline-flex;align-items:center;gap:.5rem;
+    color:var(--violet);text-decoration:none;font-size:.9rem;
+    border:1px solid rgba(139,92,246,.4);
+    padding:.5rem 1.25rem;border-radius:8px;
+    margin:1rem 0;
+    transition:box-shadow .2s;
   }
-  .promo-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-green), var(--neon-purple));
-    background-size: 200% 100%;
-    animation: gradFlow 3s linear infinite;
-  }
-  @keyframes gradFlow { 0%{background-position:0%} 100%{background-position:200%} }
-  .promo-card:hover { border-color: rgba(0,245,255,0.4); box-shadow: 0 0 30px rgba(0,245,255,0.1); }
-
-  .casino-name {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.1rem; font-weight: 700;
-    color: var(--neon-cyan); margin-bottom: 6px;
-  }
-  .casino-bonus {
-    font-size: 1.5rem; font-weight: 700;
-    color: var(--neon-green);
-    text-shadow: 0 0 12px rgba(0,255,136,0.4);
-    margin-bottom: 4px;
-  }
-  .casino-bonus-desc { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 20px; }
-
-  .promo-code-box {
-    display: flex; align-items: center; gap: 10px;
-    background: rgba(0,0,0,0.4);
-    border: 1px dashed rgba(0,245,255,0.25);
-    border-radius: 8px; padding: 10px 14px;
-    margin-bottom: 14px;
-  }
-  .code-text {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1rem; font-weight: 700;
-    color: #fff; flex: 1; letter-spacing: 2px;
-  }
-  .copy-icon {
-    cursor: pointer; color: var(--text-dim);
-    font-size: 1rem; transition: color .15s;
-  }
-  .copy-icon:hover { color: var(--neon-cyan); }
-
-  .btn-copy {
-    width: 100%; padding: 13px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.78rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-    border: none; border-radius: 8px; cursor: pointer;
-    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-green));
-    background-size: 200% 100%;
-    color: #000;
-    transition: background-position .4s, transform .15s, box-shadow .15s;
-    box-shadow: 0 0 20px rgba(0,245,255,0.25);
-  }
-  .btn-copy:hover { background-position: 100%; transform: translateY(-1px); box-shadow: 0 0 30px rgba(0,245,255,0.4); }
-  .btn-copy.copied { background: linear-gradient(90deg, var(--neon-green), #00cc66); }
-
-  .toast {
-    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(80px);
-    background: var(--neon-green); color: #000;
-    font-family: 'Orbitron', sans-serif; font-size: 0.82rem; font-weight: 700; letter-spacing: 1px;
-    padding: 12px 28px; border-radius: 100px;
-    z-index: 500;
-    transition: transform .3s ease, opacity .3s;
-    opacity: 0;
-  }
-  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-
-  /* ───── HOW IT WORKS ───── */
-  .steps {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 24px;
-  }
-  .step-card {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 14px; padding: 28px 22px;
-    backdrop-filter: blur(10px);
-    position: relative;
-    transition: border-color .2s, transform .2s;
-  }
-  .step-card:hover { border-color: rgba(0,255,136,0.4); transform: translateY(-4px); }
-
-  .step-num {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 2.5rem; font-weight: 900; line-height: 1;
-    color: rgba(0,245,255,0.12);
-    margin-bottom: 10px;
-  }
-  .step-icon {
-    font-size: 2rem; margin-bottom: 14px;
-    display: block;
-  }
-  .step-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.9rem; font-weight: 700; letter-spacing: 1px;
-    color: #fff; margin-bottom: 8px;
-  }
-  .step-text { font-size: 0.9rem; color: var(--text-dim); line-height: 1.5; }
-  .step-tag {
-    display: inline-block; margin-top: 12px;
-    background: rgba(0,245,255,0.08);
-    border: 1px solid rgba(0,245,255,0.2);
-    border-radius: 100px; padding: 3px 12px;
-    font-size: 0.75rem; color: var(--neon-cyan); letter-spacing: 1px; text-transform: uppercase;
-  }
-
-  /* ───── STATS BAR ───── */
-  .stats-bar {
-    background: rgba(0,245,255,0.04);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-  .stats-inner {
-    max-width: 1100px; margin: 0 auto;
-    padding: 40px 5vw;
-    display: flex; flex-wrap: wrap; gap: 32px; justify-content: space-around;
-  }
-  .stat { text-align: center; }
-  .stat-val {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 2.2rem; font-weight: 900;
-    color: var(--neon-cyan); text-shadow: var(--glow-cyan);
-  }
-  .stat-label { font-size: 0.82rem; color: var(--text-dim); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
-
-  /* ───── FOOTER ───── */
-  footer {
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-    padding: 60px 5vw 40px;
-    max-width: 100%;
-  }
-  .footer-inner { max-width: 1100px; margin: 0 auto; }
-  .footer-top {
-    display: grid; grid-template-columns: 1fr 1fr 1fr;
-    gap: 40px; margin-bottom: 48px;
-  }
-  .footer-logo { font-family: 'Orbitron', sans-serif; font-size: 1.4rem; font-weight: 900; color: var(--neon-cyan); text-shadow: var(--glow-cyan); margin-bottom: 12px; }
-  .footer-desc { font-size: 0.88rem; color: var(--text-dim); line-height: 1.6; }
-  .footer-col-title { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 3px; color: var(--neon-cyan); text-transform: uppercase; margin-bottom: 16px; }
-  .footer-links { list-style: none; }
-  .footer-links li { margin-bottom: 10px; }
-  .footer-links a { color: var(--text-dim); text-decoration: none; font-size: 0.9rem; transition: color .2s; }
-  .footer-links a:hover { color: var(--neon-cyan); }
-
-  .social-btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(0,245,255,0.07);
-    border: 1px solid rgba(0,245,255,0.2);
-    border-radius: 8px; padding: 10px 16px;
-    color: var(--text); text-decoration: none;
-    font-size: 0.88rem; font-weight: 600;
-    transition: background .2s, border-color .2s, color .2s;
-    margin-bottom: 10px; display: flex; width: fit-content;
-  }
-  .social-btn:hover { background: rgba(0,245,255,0.15); border-color: var(--neon-cyan); color: var(--neon-cyan); }
-
-  .seo-article {
-    background: rgba(0,245,255,0.03);
-    border: 1px solid var(--border);
-    border-radius: 12px; padding: 24px;
-    margin-bottom: 40px;
-  }
-  .seo-article h3 { font-family: 'Orbitron', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--neon-cyan); margin-bottom: 12px; letter-spacing: 1px; }
-  .seo-article p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.7; }
-
-  .footer-bottom {
-    border-top: 1px solid var(--border);
-    padding-top: 24px;
-    display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: flex-start;
-  }
-  .age-badge {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 44px; height: 44px; border-radius: 50%;
-    background: rgba(255,100,0,0.15);
-    border: 2px solid rgba(255,100,0,0.5);
-    font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 0.85rem;
-    color: #ff6400;
-  }
-  .legal-text { font-size: 0.78rem; color: var(--text-dim); max-width: 600px; line-height: 1.5; }
-  .legal-text strong { color: #ff6400; }
-
-  /* ───── RESPONSIVE ───── */
-  @media (max-width: 768px) {
-    .footer-top { grid-template-columns: 1fr; }
-    nav { display: none; }
-    .cta-row { flex-direction: column; align-items: center; }
-    .btn { width: 260px; justify-content: center; }
+  .tg-link:hover{box-shadow:0 0 15px rgba(139,92,246,.4)}
+  .footer-links{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin:.75rem 0}
+  .footer-links a{color:#555;font-size:.8rem;text-decoration:none;transition:color .2s}
+  .footer-links a:hover{color:#888}
+  .disclaimer{
+    max-width:600px;margin:.75rem auto 0;
+    font-size:.75rem;color:#444;line-height:1.6;
   }
 
-  /* ───── SCROLL REVEAL ───── */
-  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
-  .reveal.visible { opacity: 1; transform: none; }
+  /* Animations */
+  @keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+  @media(max-width:600px){
+    .tl-line{left:26px}
+    .tl-step,.tl-step:nth-child(even){flex-direction:row}
+    .tl-circle{width:44px;height:44px;font-size:18px}
+  }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header>
-  <a href="#" class="logo">Mines<span>Promo</span></a>
-  <nav>
-    <a href="#promo">Промокоды</a>
-    <a href="#how">Как работает</a>
-    <a href="#signals">Сигналы</a>
-  </nav>
-</header>
+<!-- Rain canvas -->
+<canvas id="rain-canvas"></canvas>
 
-<!-- HERO -->
-<div class="hero" id="top">
-  <div class="hero-glow"></div>
+<!-- Toast -->
+<div class="toast" id="toast">⚡ КОД СКОПИРОВАН. УДАЧИ!</div>
 
-  <div class="hero-badge">
-    <span class="badge-dot"></span>
-    Алгоритм активен · 2026
-  </div>
-
-  <h1>
-    Mines 2026:<br>
-    <span class="accent-cyan">Умные сигналы</span> для<br>
-    <span class="accent-green">уверенной игры</span>
-  </h1>
-
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="hero-badge">MINES PROMO SYSTEM v4.2</div>
+  <h1>СТРАТЕГИЯ MINES<br><span>НА 1WIN</span></h1>
   <p class="hero-sub">
-    Получай сигналы Mines, эксклюзивные промокоды и бонусы до 500% прямо сейчас. Mines signals нового поколения.
+    Аналитика вероятностей в реальном времени.<br>
+    <b>+500% БОНУС</b> к первому депозиту. Обновлено сегодня.
   </p>
 
-  <!-- INTERACTIVE GRID -->
-  <div class="grid-section" id="signals">
-    <div class="mines-grid" id="minesGrid"></div>
-    <p class="grid-hint">⟳ Нажми на ячейку · Симуляция сигнала</p>
-  </div>
-
-  <div class="cta-row">
-    <a href="https://t.me/themoonberry" target="_blank" class="btn btn-primary">⚡ Получить сигнал</a>
-    <a href="https://t.me/themoonberry" target="_blank" class="btn btn-secondary">🎁 Регистрация +500%</a>
-  </div>
-</div>
-
-<!-- SEO H2 -->
-<div class="seo-bar">
-  <h2>
-    Лучшие <span>Mines signals</span> и <span>промокоды Mines</span> 2026 · Стратегии и <span>промокоды 1win</span> · Как выиграть в Mines
-  </h2>
-</div>
-
-<!-- STATS -->
-<div class="stats-bar reveal">
-  <div class="stats-inner">
-    <div class="stat"><div class="stat-val">50K+</div><div class="stat-label">Игроков в сети</div></div>
-    <div class="stat"><div class="stat-val">3</div><div class="stat-label">Казино-партнёра</div></div>
-    <div class="stat"><div class="stat-val">500%</div><div class="stat-label">Макс. бонус</div></div>
-    <div class="stat"><div class="stat-val">24/7</div><div class="stat-label">Поддержка</div></div>
-  </div>
-</div>
-
-<!-- PROMO CODES -->
-<section id="promo">
-  <div class="reveal">
-    <p class="section-label">// промокоды и бонусы</p>
-    <h2 class="section-title">Эксклюзивные<br>промо-коды</h2>
-    <p class="section-desc">Активируй код при регистрации и получи максимальный стартовый бонус. Коды обновляются еженедельно.</p>
-  </div>
-
-  <div class="promo-grid reveal">
-
-    <div class="promo-card">
-      <div class="casino-name">🎮 1WIN</div>
-      <div class="casino-bonus">+500%</div>
-      <div class="casino-bonus-desc">на первые 4 депозита</div>
-      <div class="promo-code-box">
-        <span class="code-text" id="code1">MINESPROMO</span>
-        <span class="copy-icon" onclick="copyCode('code1','btn1')">📋</span>
+  <div class="glass-panel">
+    <div class="grid-wrap">
+      <div class="mines-grid" id="minesGrid">
       </div>
-      <button class="btn-copy" id="btn1" onclick="copyCode('code1','btn1')">Скопировать код</button>
+    </div>
+  </div>
+
+  <a class="cta-btn" href="https://lkyi.cc/791342" target="_blank" rel="noopener">
+    🚀 ПОЛУЧИТЬ БОНУС +500% НА 1WIN
+  </a>
+</section>
+
+<!-- ===================== PROMO CODES ===================== -->
+<section>
+  <div class="section-title">ПРОМОКОДЫ <span>ЗОЛОТАЯ ЖИЛА</span></div>
+  <div class="section-sub">Активируй бонус при регистрации и получи максимальный буст</div>
+  <div class="promo-cards">
+    <div class="promo-card">
+      <div class="sheen"></div>
+      <div class="card-logo">1<span>WIN</span></div>
+      <div class="bonus-text">+500% к депо</div>
+      <div class="promo-field" onclick="copyCode('MINES2026',this)">MINES2026</div>
+      <a class="activate-btn" href="https://lkyi.cc/791342" target="_blank" rel="noopener">АКТИВИРОВАТЬ</a>
+    </div>
+    <div class="promo-card">
+      <div class="sheen"></div>
+      <div class="card-logo">1<span>WIN</span></div>
+      <div class="bonus-text">+200 FS</div>
+      <div class="promo-field" onclick="copyCode('MINESVIP',this)">MINESVIP</div>
+      <a class="activate-btn" href="https://lkyi.cc/791342" target="_blank" rel="noopener">АКТИВИРОВАТЬ</a>
+    </div>
+    <div class="promo-card">
+      <div class="sheen"></div>
+      <div class="card-logo">1<span>WIN</span></div>
+      <div class="bonus-text">CASHBACK 30%</div>
+      <div class="promo-field" onclick="copyCode('PROFITNOW',this)">PROFITNOW</div>
+      <a class="activate-btn" href="https://lkyi.cc/791342" target="_blank" rel="noopener">АКТИВИРОВАТЬ</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TIMELINE ===================== -->
+<section style="background:rgba(139,92,246,.03)">
+  <div class="section-title">ПУТЬ К <span>ПРОФИТУ</span></div>
+  <div class="section-sub">3 шага до первого выигрыша</div>
+
+  <div class="timeline">
+    <div class="tl-line"></div>
+
+    <div class="tl-step">
+      <div class="tl-circle" id="step1">👤</div>
+      <div class="tl-content">
+        <h3>01 — Регистрация</h3>
+        <p>Создай аккаунт на 1win через нашу ссылку. Только через неё активируется бонус +500%.</p>
+        <a class="tl-btn" href="https://lkyi.cc/791342" target="_blank" rel="noopener">РЕГИСТРАЦИЯ 1WIN →</a>
+      </div>
     </div>
 
-    <div class="promo-card">
-      <div class="casino-name">🚀 LUCKY JET</div>
-      <div class="casino-bonus">+200%</div>
-      <div class="casino-bonus-desc">бонус на депозит + фриспины</div>
-      <div class="promo-code-box">
-        <span class="code-text" id="code2">LUCKYMINES26</span>
-        <span class="copy-icon" onclick="copyCode('code2','btn2')">📋</span>
+    <div class="tl-step">
+      <div class="tl-circle" id="step2">💳</div>
+      <div class="tl-content">
+        <h3>02 — Депозит и промокод</h3>
+        <p>Пополни счёт и введи промокод <b style="color:var(--lime)">MINES2026</b> при регистрации. Бонус зачислится автоматически.</p>
       </div>
-      <button class="btn-copy" id="btn2" onclick="copyCode('code2','btn2')">Скопировать код</button>
     </div>
 
-    <div class="promo-card">
-      <div class="casino-name">💎 MOSTBET</div>
-      <div class="casino-bonus">+125%</div>
-      <div class="casino-bonus-desc">на первый депозит</div>
-      <div class="promo-code-box">
-        <span class="code-text" id="code3">MINES125</span>
-        <span class="copy-icon" onclick="copyCode('code3','btn3')">📋</span>
+    <div class="tl-step">
+      <div class="tl-circle" id="step3">🚀</div>
+      <div class="tl-content">
+        <h3>03 — Игра и выигрыш</h3>
+        <p>Открывай Mines в 1win. Используй нашу стратегию и аналитику. Выводи иксы.</p>
       </div>
-      <button class="btn-copy" id="btn3" onclick="copyCode('code3','btn3')">Скопировать код</button>
-    </div>
-
-    <div class="promo-card">
-      <div class="casino-name">⚡ 1XBET</div>
-      <div class="casino-bonus">+100$</div>
-      <div class="casino-bonus-desc">бонус новым игрокам</div>
-      <div class="promo-code-box">
-        <span class="code-text" id="code4">XMINES2026</span>
-        <span class="copy-icon" onclick="copyCode('code4','btn4')">📋</span>
-      </div>
-      <button class="btn-copy" id="btn4" onclick="copyCode('code4','btn4')">Скопировать код</button>
     </div>
 
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section id="how" style="background: rgba(0,245,255,0.02); max-width:100%; padding: 80px 5vw;">
-  <div style="max-width:1100px; margin:0 auto;">
-    <div class="reveal">
-      <p class="section-label">// инструкция</p>
-      <h2 class="section-title">Как получить<br>сигналы Mines</h2>
-      <p class="section-desc">Три простых шага до первой игровой сессии с нашими сигналами</p>
+<!-- ===================== LIVE WINS ===================== -->
+<section class="live-section">
+  <div class="live-header">
+    <div class="live-dot"></div>
+    <div class="live-label">LIVE — ВЫИГРЫШИ СЕЙЧАС</div>
+  </div>
+  <div class="wins-feed" id="winsFeed"></div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section>
+  <div class="section-title">ЧАСТО <span>ЗАДАВАЕМЫЕ ВОПРОСЫ</span></div>
+  <div class="section-sub">Всё, что нужно знать перед стартом</div>
+
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Что такое Mines и как в это играть?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">Mines — это популярная казуальная игра на платформе 1win. На поле 5×5 спрятаны мины. Твоя задача — открывать клетки, избегая мин. Чем больше клеток открыто, тем выше множитель выигрыша. Вывести выигрыш можно в любой момент.</div>
     </div>
 
-    <div class="steps reveal">
-
-      <div class="step-card">
-        <div class="step-num">01</div>
-        <span class="step-icon">🔗</span>
-        <div class="step-title">Регистрация</div>
-        <div class="step-text">Зарегистрируйся по партнёрской ссылке — только новые аккаунты получают доступ к полному функционалу сигналов и максимальным бонусам.</div>
-        <span class="step-tag">Важно: новый аккаунт</span>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Могут ли заблокировать аккаунт за использование стратегии?</span>
+        <div class="faq-icon">+</div>
       </div>
-
-      <div class="step-card">
-        <div class="step-num">02</div>
-        <span class="step-icon">🎁</span>
-        <div class="step-title">Ввод промокода</div>
-        <div class="step-text">При регистрации или в личном кабинете введи промокод из раздела выше. Бонус зачислится автоматически на игровой счёт.</div>
-        <span class="step-tag">Стратегия Mines</span>
-      </div>
-
-      <div class="step-card">
-        <div class="step-num">03</div>
-        <span class="step-icon">🤖</span>
-        <div class="step-title">Подключи бота</div>
-        <div class="step-text">Перейди в наш Telegram-бот, он пришлёт тебе актуальные паттерны и подсказки для игры в Mines. Обновления каждые 15 минут.</div>
-        <span class="step-tag">Telegram Bot</span>
-      </div>
-
-      <div class="step-card">
-        <div class="step-num">04</div>
-        <span class="step-icon">💰</span>
-        <div class="step-title">Начни игру</div>
-        <div class="step-text">Используй полученные сигналы и промокод Mines в игровой сессии. Управляй банкроллом ответственно и помни о лимитах.</div>
-        <span class="step-tag">Проверка честности</span>
-      </div>
-
+      <div class="faq-a">Нет. Наши материалы — это статистический анализ вероятностей и рекомендации по управлению банкроллом. Всё строго в рамках правил 1win. Мы не взламываем и не обходим алгоритмы — мы анализируем паттерны. Это аналогично изучению стратегий в покере.</div>
     </div>
 
-    <div style="text-align:center; margin-top:48px;" class="reveal">
-      <a href="https://t.me/themoonberry" target="_blank" class="btn btn-primary" style="display:inline-flex;">
-        🤖 Подключить Telegram-бот
-      </a>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Как активировать бонус +500%?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">Зарегистрируйся на 1win по нашей ссылке, введи промокод MINES2026 при регистрации, сделай первый депозит — бонус зачислится автоматически. Минимальный депозит для активации бонуса указан в правилах 1win.</div>
     </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Гарантирован ли выигрыш?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">Нет. Любая азартная игра предполагает риск потери средств. Мы предоставляем аналитику и рекомендации по стратегии управления ставками — они повышают осознанность игры, но не гарантируют прибыль. Играй ответственно и только на те деньги, которые готов потерять.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Сколько стоит использование сервиса?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">Полностью бесплатно. Мы зарабатываем как партнёры 1win — часть платформенной комиссии идёт нам при твоей регистрации. Для тебя это никак не влияет на условия игры и размер бонусов.</div>
+    </div>
+
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ===================== FOOTER ===================== -->
 <footer>
-  <div class="footer-inner">
-
-    <div class="seo-article reveal">
-      <h3>Обзор лучших сигналов для Mines 2026</h3>
-      <p>
-        Mines signals 2026 — одно из самых обсуждаемых направлений среди игроков в crash-игры. Правильная стратегия игры Mines включает управление банкроллом, выбор оптимального числа мин и использование актуальных промокодов Mines для старта с бонусом. Наш сервис агрегирует промокоды 1win, Mostbet и других платформ, где доступна игра Mines. Промокод Mines при регистрации позволяет получить значительный стартовый капитал. Сигналы 1win и паттерны обновляются регулярно с учётом алгоритма провабли-честности. Помните: любая игра на деньги несёт финансовый риск — играйте ответственно.
-      </p>
-    </div>
-
-    <div class="footer-top reveal">
-      <div>
-        <div class="footer-logo">MinesPromo</div>
-        <div class="footer-desc">Агрегатор промокодов и сигналов для игры Mines. Только актуальные бонусы и партнёрские предложения 2026.</div>
-      </div>
-      <div>
-        <div class="footer-col-title">Навигация</div>
-        <ul class="footer-links">
-          <li><a href="#promo">Промокоды</a></li>
-          <li><a href="#how">Инструкция</a></li>
-          <li><a href="#signals">Сигналы</a></li>
-          <li><a href="https://t.me/themoonberry" target="_blank">Поддержка</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col-title">Контакты</div>
-        <a href="https://t.me/themoonberry" target="_blank" class="social-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.02 9.52c-.149.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.322 14.28l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.834.306z"/></svg>
-          @themoonberry
-        </a>
-        <br>
-        <a href="https://t.me/themoonberry" target="_blank" class="social-btn" style="margin-top:8px;">
-          💬 Telegram-поддержка
-        </a>
-      </div>
-    </div>
-
-    <div class="footer-bottom reveal">
-      <div style="display:flex; align-items:flex-start; gap:16px;">
-        <div class="age-badge">18+</div>
-        <div class="legal-text">
-          <strong>Предупреждение:</strong> Данный сайт содержит партнёрские ссылки на онлайн-казино. Азартные игры доступны лицам старше 18 лет. Игра на деньги несёт реальный финансовый риск. Если азартные игры мешают вашей жизни — обратитесь за помощью: <strong>gamblersanonymous.org</strong>. Играйте ответственно. Промокоды являются партнёрскими предложениями и могут изменяться.
-        </div>
-      </div>
-      <div style="font-size:.78rem; color:var(--text-dim); text-align:right;">
-        © 2026 MinesPromo<br>Все права защищены
-      </div>
-    </div>
-
+  <div class="footer-logo">MINES<span>PROMO</span>.TOP</div>
+  <a class="tg-link" href="https://lkyi.cc/791342" target="_blank" rel="noopener">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M21.8 3.1L2.2 10.9c-1.3.5-1.3 1.3-.2 1.6l5 1.6 1.9 5.8c.3.8.5.9 1.1.9.4 0 .7-.2 1-.4l2.9-2.8 5.2 3.8c1 .5 1.6.3 1.9-.9l3.4-15.7c.4-1.5-.6-2.2-1.6-1.7z" fill="#8B5CF6"/>
+    </svg>
+    Тех. Поддержка (Telegram)
+  </a>
+  <div class="footer-links">
+    <a href="https://lkyi.cc/791342" target="_blank" rel="noopener">Политика конфиденциальности</a>
+    <a href="https://lkyi.cc/791342" target="_blank" rel="noopener">Условия использования</a>
+    <a href="https://lkyi.cc/791342" target="_blank" rel="noopener">Партнёрская программа</a>
+  </div>
+  <div class="disclaimer">
+    18+ | Только для совершеннолетних. Азартные игры связаны с финансовым риском.
+    Играйте ответственно. Если игра перестаёт приносить удовольствие — обратитесь за помощью.
+    Сайт не является официальным ресурсом 1win. Партнёрский ресурс.
   </div>
 </footer>
 
-<!-- TOAST -->
-<div class="toast" id="toast">✓ Код скопирован!</div>
-
 <script>
-  // ── Mines Grid ──
-  const grid = document.getElementById('minesGrid');
-  const emojis = ['⭐','💎','🌟','✨'];
-  const mine = '💣';
-  let cells = [];
+/* === DIGITAL RAIN === */
+(function(){
+  const canvas=document.getElementById('rain-canvas');
+  const ctx=canvas.getContext('2d');
+  const chars='01アイウエオカキクケコサシスセソタチツテトナニヌネノ';
+  let cols,drops;
+  function resize(){
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+    cols=Math.floor(canvas.width/16);
+    drops=Array(cols).fill(1);
+  }
+  resize();
+  window.addEventListener('resize',resize);
+  setInterval(()=>{
+    ctx.fillStyle='rgba(8,8,8,0.06)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle='#3a6e00';
+    ctx.font='13px monospace';
+    for(let i=0;i<drops.length;i++){
+      const c=chars[Math.floor(Math.random()*chars.length)];
+      ctx.fillText(c,i*16,drops[i]*16);
+      if(drops[i]*16>canvas.height&&Math.random()>.97)drops[i]=0;
+      drops[i]++;
+    }
+  },60);
+})();
 
-  for (let i = 0; i < 25; i++) {
-    const c = document.createElement('div');
-    c.className = 'cell';
-    c.innerHTML = '&nbsp;';
-    c.addEventListener('click', () => revealCell(i));
+/* === MINES GRID ANIMATION === */
+(function(){
+  const grid=document.getElementById('minesGrid');
+  const SAFE=[2,8,14];
+  const BOMB=[0,5,12,18,24];
+  const cells=[];
+  for(let i=0;i<25;i++){
+    const c=document.createElement('div');
+    c.className='cell';
     grid.appendChild(c);
     cells.push(c);
   }
-
-  // Auto-animate stars
-  function randomReveal() {
-    const idx = Math.floor(Math.random() * 25);
-    const c = cells[idx];
-    if (!c.classList.contains('star') && !c.classList.contains('mine')) {
-      const isMine = Math.random() < 0.15;
-      if (isMine) {
-        c.classList.add('mine');
-        c.textContent = mine;
-      } else {
-        c.classList.add('star');
-        c.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+  function runScan(){
+    cells.forEach(c=>{c.className='cell'});
+    let i=0;
+    const interval=setInterval(()=>{
+      if(i>0){cells[i-1].className='cell'}
+      cells[i].className='cell scan';
+      i++;
+      if(i>=25){
+        clearInterval(interval);
+        setTimeout(()=>{
+          cells.forEach((c,idx)=>{
+            c.className='cell';
+            if(SAFE.includes(idx))c.className='cell safe';
+            if(BOMB.includes(idx))c.className='cell bomb';
+          });
+          setTimeout(runScan,4000);
+        },500);
       }
-      setTimeout(() => {
-        c.className = 'cell';
-        c.innerHTML = '&nbsp;';
-      }, 2000);
-    }
+    },80);
   }
-  setInterval(randomReveal, 600);
+  runScan();
+})();
 
-  function revealCell(i) {
-    const c = cells[i];
-    if (c.classList.contains('star') || c.classList.contains('mine')) return;
-    const isMine = Math.random() < 0.18;
-    if (isMine) {
-      c.classList.add('mine');
-      c.textContent = mine;
-    } else {
-      c.classList.add('star');
-      c.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    }
-  }
+/* === COPY PROMO CODE === */
+function copyCode(code,el){
+  navigator.clipboard.writeText(code).catch(()=>{});
+  el.style.transform='scale(0.96)';
+  setTimeout(()=>{el.style.transform=''},150);
+  showToast();
+}
+function showToast(){
+  const t=document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
 
-  // ── Copy Code ──
-  function copyCode(codeId, btnId) {
-    const text = document.getElementById(codeId).textContent.trim();
-    navigator.clipboard.writeText(text).catch(() => {
-      const ta = document.createElement('textarea');
-      ta.value = text; document.body.appendChild(ta);
-      ta.select(); document.execCommand('copy');
-      document.body.removeChild(ta);
+/* === FAQ === */
+function toggleFaq(el){
+  const item=el.parentElement;
+  const wasOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!wasOpen)item.classList.add('open');
+}
+
+/* === TIMELINE SCROLL ANIMATION === */
+(function(){
+  const steps=['step1','step2','step3'];
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting)e.target.classList.add('active');
     });
-    const btn = document.getElementById(btnId);
-    btn.textContent = '✓ Скопировано!';
-    btn.classList.add('copied');
-    setTimeout(() => {
-      btn.textContent = 'Скопировать код';
-      btn.classList.remove('copied');
-    }, 2000);
-    showToast();
-  }
+  },{threshold:.5});
+  steps.forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)obs.observe(el);
+  });
+})();
 
-  function showToast() {
-    const t = document.getElementById('toast');
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2200);
+/* === LIVE WINS FEED === */
+(function(){
+  const feed=document.getElementById('winsFeed');
+  const names=['v***a','k***r','d***s','m***o','a***n','l***y','p***k','s***z','t***i','n***w','e***b','r***h'];
+  const emojis=['🔥','💥','⚡','🤑','🎯','💎','🚀'];
+  function rnd(min,max){return Math.floor(Math.random()*(max-min+1)+min)}
+  function addRow(){
+    const name=names[rnd(0,names.length-1)];
+    const amount=(rnd(3,50)*1000).toLocaleString('ru-RU');
+    const emoji=emojis[rnd(0,emojis.length-1)];
+    const row=document.createElement('div');
+    row.className='win-row';
+    row.innerHTML=`<span class="win-name">${name}</span><span class="win-amount">+${amount} ₽</span><span class="win-emoji">${emoji}</span>`;
+    feed.insertBefore(row,feed.firstChild);
+    while(feed.children.length>12)feed.removeChild(feed.lastChild);
   }
-
-  // ── Scroll Reveal ──
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-  }, { threshold: 0.12 });
-  reveals.forEach(r => observer.observe(r));
+  for(let i=0;i<8;i++)addRow();
+  setInterval(addRow,8000);
+})();
 </script>
-
 </body>
 </html>
